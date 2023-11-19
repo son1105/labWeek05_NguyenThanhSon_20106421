@@ -1,6 +1,7 @@
 package vn.edu.iuh.fit;
 
 import com.neovisionaries.i18n.CountryCode;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -44,12 +45,9 @@ public class LabWeek05NguyenThanhSon20106421Application {
     }
 
     @Bean
+    @Transactional
     CommandLineRunner initData() {
         return args -> {
-//            Job job = jobRepository.findById(1L).get();
-//            Skill skill = skillRepository.findById(1L).get();
-//            JobSkill jobSkill = new JobSkill(job, skill, SkillLevel.ADVANCED, "more info");
-//            jobSkillRepository.save(jobSkill);
             Random random = new Random();
             String[] diaChi = {"Quang Trung,TP.HCM", "Hai Bà Trưng,Hà Nội", "Trần Phú,Đà Nẵng", "Lê Lợi,Hải Phòng", "Võ Văn Kiệt,Cần Thơ"};
             Address address = null;
@@ -89,26 +87,20 @@ public class LabWeek05NguyenThanhSon20106421Application {
                 jobRepository.save(job);
             }
 
-            job = jobRepository.findById(1L).get();
-            skill = skillRepository.findById(1L).get();
-            jobSkill = new JobSkill(job, skill, SkillLevel.ADVANCED, "more info");
-            jobSkillRepository.save(jobSkill);
+            for (int i = 1; i <= 100; i++) {
+                candidate = candidateRepository.findById(random.nextLong(1,101)).get();
+                skill = skillRepository.findById(random.nextLong(1,101)).get();
+                candidateSkill = new CandidateSkill(candidate, skill
+                        , i%5==0? SkillLevel.BEGINER:i%5==1?SkillLevel.IMTERMEDIATE:i%5==2?SkillLevel.ADVANCED:i%5==3?SkillLevel.PROFESSIONAL:SkillLevel.MASTER,
+                        "More information "+i);
+                candidateSkillRepository.save(candidateSkill);
+                job = jobRepository.findById(random.nextLong(1,101)).get();
+                skill = skillRepository.findById(random.nextLong(1,101)).get();
+                jobSkill = new JobSkill(job, skill, i % 9 == 0 ? SkillLevel.BEGINER : i % 9 == 2 ? SkillLevel.IMTERMEDIATE : i % 9 == 4 ? SkillLevel.ADVANCED : i % 9 == 6 ? SkillLevel.PROFESSIONAL : SkillLevel.MASTER,
+                        "More information " + 1);
+                jobSkillRepository.save(jobSkill);
 
-//            for (int i = 1; i <= 100; i++) {
-////                candidate = candidateRepository.findById(random.nextLong(1,101)).get();
-////                skill = skillRepository.findById(random.nextLong(1,101)).get();
-////                candidateSkill = new CandidateSkill(candidate, skill
-////                        , i%5==0? SkillLevel.BEGINER:i%5==1?SkillLevel.IMTERMEDIATE:i%5==2?SkillLevel.ADVANCED:i%5==3?SkillLevel.PROFESSIONAL:SkillLevel.MASTER,
-////                        "More information "+i);
-////                System.out.println(candidateSkill);
-////                candidateSkillRepository.save(candidateSkill);
-//                job = jobRepository.findById(1L).get();
-//                skill = skillRepository.findById(1L).get();
-//                jobSkill = new JobSkill(job, skill, i % 9 == 0 ? SkillLevel.BEGINER : i % 9 == 2 ? SkillLevel.IMTERMEDIATE : i % 9 == 4 ? SkillLevel.ADVANCED : i % 9 == 6 ? SkillLevel.PROFESSIONAL : SkillLevel.MASTER,
-//                        "More information " + 1);
-//                jobSkillRepository.save(jobSkill);
-//
-//            }
+            }
         };
     }
 }

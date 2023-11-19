@@ -95,6 +95,6 @@ public class CandidateController {
         addressRepository.save(address);
         candidate.setAddress(address);
         candidateRepository.save(candidate);
-        return "redirect:/list";
+        return "redirect:/candidates";
     }
 }

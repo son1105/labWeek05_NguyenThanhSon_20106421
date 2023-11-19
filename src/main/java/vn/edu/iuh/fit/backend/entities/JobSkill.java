@@ -7,13 +7,15 @@ import lombok.NoArgsConstructor;
 import vn.edu.iuh.fit.backend.enums.SkillLevel;
 import vn.edu.iuh.fit.backend.ids.JobSkillId;
 
+import java.io.Serializable;
+
 @Entity
 @Table(name = "job_skill")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @IdClass(JobSkillId.class)
-public class JobSkill {
+public class JobSkill implements Serializable {
     @Id
     @ManyToOne
     @JoinColumn(name = "job_id")

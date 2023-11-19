@@ -8,17 +8,8 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class CandidateSkillId implements Serializable {
-    private Candidate candidate;
-    private Skill skill;
-
-
-    public CandidateSkillId(Candidate candidate, Skill skill) {
-        this.candidate = candidate;
-        this.skill = skill;
-    }
-
-    public CandidateSkillId() {
-    }
+    private long candidate;
+    private long skill;
 
     @Override
     public boolean equals(Object o) {

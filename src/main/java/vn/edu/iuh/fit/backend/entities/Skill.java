@@ -2,16 +2,15 @@ package vn.edu.iuh.fit.backend.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import vn.edu.iuh.fit.backend.enums.SkillType;
 
 import java.util.List;
 
 @Entity
 @Table(name = "skill")
-@Data
+@Setter
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Skill {

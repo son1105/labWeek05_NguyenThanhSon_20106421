@@ -7,8 +7,8 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class JobSkillId implements Serializable {
-    private Job job;
-    private Skill skill;
+    private long job;
+    private long skill;
 
     @Override
     public boolean equals(Object o) {
