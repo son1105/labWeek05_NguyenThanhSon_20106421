@@ -11,7 +11,13 @@ public enum SkillLevel {
     IMTERMEDIATE(2),
 
     BEGINER(1);
+    private int value;
 
     SkillLevel(int value) {
+        this.value = value;
+    }
+
+    public int getValue() {
+        return value;
     }
 }

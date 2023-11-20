@@ -10,12 +10,12 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
+<h2>Skill Of <span th:text="${job.getName()}"></span></h2>
     <div th:switch="${skills}">
         <div th:case="null">
             <h1>No skills yet!</h1>
         </div>
         <div th:case="*">
-            <h2>Skills</h2>
             <table class="table table-hover">
                 <thead>
                 <tr>
@@ -23,23 +23,28 @@
                     <th>Skill Name</th>
                     <th>Skill Type</th>
                     <th>Skill Description</th>
-                    <th>Update</th>
-                    <th>Delete</th>
+                    <th>Skill Level</th>
+                    <th>More Information</th>
+                    <td><a class="btn btn-primary" th:href="@{/{jobId}/skill/show-add-form(jobId=${job.getId()})}">Insert</a></td>
                 </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="skill : ${skills}">
-                        <td th:text="${skill.getId()}"></td>
-                        <td th:text="${skill.getSkillName()}"></td>
-                        <td th:text="${skill.getSkillType()}"></td>
-                        <td th:text="${skill.getSkillDesc()}"></td>
-                        <td><a class="btn btn-success">Update</a></td>
-                        <td><a class="btn btn-danger">Delete</a></td>
+                    <tr th:each="skillInfo : ${skills}">
+                        <td th:text="${skillInfo.skill.getId()}"></td>
+                        <td th:text="${skillInfo.skill.getSkillName()}"></td>
+                        <td th:text="${skillInfo.skill.getSkillType()}"></td>
+                        <td th:text="${skillInfo.skill.getSkillDesc()}"></td>
+                        <td th:text="${skillInfo.getSkillLevel()}"></td>
+                        <td th:text="${skillInfo.getMoreInfo()}"></td>
+                        <td>
+                            <form action="#" th:action="@{/{jobId}/{skillId}/deleteSkill(jobId=${job.getId()}, skillId=${skillInfo.getSkill().getId()})}" method="post">
+                                <button class="btn btn-danger" type="submit">Delete</button>
+                            </form>
+                        </td>
                     </tr>
                 </tbody>
             </table>
         </div>
-
     </div>
 </body>
 </html>

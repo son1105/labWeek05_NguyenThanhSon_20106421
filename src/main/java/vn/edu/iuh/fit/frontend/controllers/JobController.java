@@ -5,8 +5,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+import vn.edu.iuh.fit.backend.entities.Company;
 import vn.edu.iuh.fit.backend.entities.Job;
+import vn.edu.iuh.fit.backend.repositories.CompanyRepository;
 import vn.edu.iuh.fit.backend.repositories.JobRepository;
 import vn.edu.iuh.fit.backend.services.JobService;
 
@@ -18,16 +21,18 @@ import java.util.stream.IntStream;
 @Controller
 public class JobController {
     @Autowired
-    private JobRepository jobRepository;
-    @Autowired
     private JobService jobService;
+    @Autowired
+    private CompanyRepository companyRepository;
 
-    @GetMapping("/jobs")
-    public String showJobList(Model model, @RequestParam Optional<Integer> page, @RequestParam Optional<Integer> size){
+    @GetMapping("/{companyID}/jobs")
+    public String showJobList(Model model, @PathVariable("companyID") long companyID, @RequestParam Optional<Integer> page, @RequestParam Optional<Integer> size){
         int currPage = page.orElse(1);
         int pageSize = size.orElse(10);
-        Page<Job> jobPage = jobService.getAl(currPage - 1, pageSize, "id", "asc");
+        Page<Job> jobPage = jobService.getAll(currPage - 1, pageSize, "id", "asc", companyID);
         model.addAttribute("pageJob", jobPage);
+        Company company = companyRepository.findById(companyID).orElse(null);
+        model.addAttribute("company", company);
         int totalPage = jobPage.getTotalPages();
         if(totalPage > 0){
             List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPage).boxed().collect(Collectors.toList());

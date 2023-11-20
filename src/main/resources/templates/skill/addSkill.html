@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Candidates</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+            crossorigin="anonymous"></script>
+</head>
+<body>
+<h1 th:align="center">ADD NEW SKILL</h1>
+    <form class="p-5" action="#" th:action="@{/{jobId}/skill/addSkill(jobId=${jobId})}" th:object="${jobSkill}" method="post">
+        <div class="row mb-3">
+            <label for="name" class="col-sm-1 col-form-label">Choose skill</label>
+            <select class="col-sm-1 ml-5 w-75 form-control" id="name" th:field="${skill.id}">
+                <option th:each="skill:${skills}" th:text="${skill.skillName}" th:value="${skill.id}"></option>
+            </select>
+        </div>
+        <div class="row mb-3">
+            <label for="level" class="col-sm-1 col-form-label">Skill Level</label>
+            <select class="col-sm-1 w-75 form-control" id="level" th:field="*{skillLevel}">
+                <option th:each="skillLevel:${skillLevel}" th:text="${skillLevel}" th:value="${skillLevel}"></option>
+            </select>
+        </div>
+        <div class="row mb-3">
+            <label for="info" class="col-sm-1 col-form-label">More Information</label>
+            <textarea class="col-sm-1 w-75 form-control" id="info" th:field="*{moreInfo}"></textarea>
+        </div>
+        <br/>
+        <div class="d-grid gap-2 col-3 mx-auto">
+            <input class="btn btn-primary" type="submit" value="Add Skill">
+        </div>
+    </form>
+</body>
+</html>

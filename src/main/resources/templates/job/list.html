@@ -1,5 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+<style>
+    div.page {
+        padding: 5px 5px;
+        display: inline-block;
+    }
+    div.page a.active {
+        font-size: 20px;
+        font-weight: bold;
+    }
+</style>
 <head>
     <meta charset="UTF-8">
     <title>Jobs</title>
@@ -11,25 +21,38 @@
 </head>
 <body>
     <div>
-        <h2>List Job</h2>
-        <table class="table table-hover">
+        <h2>List Job Of <span th:text="${company.getName()}"></span></h2>
+        <table class="table table-hover text-center">
             <thead>
                 <tr style="text-align: center">
                     <th>Id</th>
                     <th>Name</th>
                     <th>Job Description</th>
-                    <th>Company</th>
+                    <th>Skill</th>
+                    <th>Edit Skill</th>
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="job : ${pageJob}">
+                <tr th:each="job : ${pageJob.content}">
                     <td th:text="${job.getId()}"></td>
                     <td th:text="${job.getName()}"></td>
                     <td th:text="${job.getDescription()}"></td>
-                    <td th:text="${job.getCompany()}"></td>
+                    <td>
+                    <div class="d-flex flex-column" th:each="jobSkill:${job.jobSkills}">
+                        <p class="fw-bold">*  <span class="fw-normal" th:text="${jobSkill.skill.skillName}"></span></p>
+                    </div>
+                    </td>
+                    <td><a class="btn btn-success" th:href="@{/{jobId}/skills(jobId=${job.id})}">Edit</a></td>
                 </tr>
             </tbody>
         </table>
+        <div>
+            <div class="page"  th:if="${pageJob.totalPages > 0}" th:each="pageNumber : ${pageNumbers}">
+                <a th:href="@{/{companyId}/jobs(size=${pageJob.size}, page=${pageNumber}, companyId = ${company.getId()})}"
+                   th:text="${pageNumber}"
+                   th:class="${pageNumber==pageJob.number + 1} ? active"></a>
+            </div>
+        </div>
     </div>
 </body>
 </html>

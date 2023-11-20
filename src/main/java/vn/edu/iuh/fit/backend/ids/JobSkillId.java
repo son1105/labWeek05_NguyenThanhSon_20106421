@@ -1,11 +1,16 @@
 package vn.edu.iuh.fit.backend.ids;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import vn.edu.iuh.fit.backend.entities.Job;
 import vn.edu.iuh.fit.backend.entities.Skill;
 
 import java.io.Serializable;
 import java.util.Objects;
 
+@AllArgsConstructor
+@NoArgsConstructor
 public class JobSkillId implements Serializable {
     private long job;
     private long skill;
