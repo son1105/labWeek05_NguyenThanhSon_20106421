@@ -20,7 +20,7 @@ project week05
   + Có thể xoá một Skill trong Job đó bằng cách nhấn vào nút Delete.
   + Trong trang Company có nút User để thực hiện chuyển sang trang hiển thị thông tin của user đã đăng nhập.
     ![Screenshot (71)](https://github.com/son1105/labWeek05_NguyenThanhSon_20106421/assets/115455297/a5ece5e0-a020-47fa-9704-aac115a7d2e2)
-  + Trong trang user, click vào View Job For You để tìm kiếm các công việc có skill và skill level phù hợp với bản thân(hệ thống sẽ tự động tìm kiếm skill và skill level của Candidate trong bảng CandidateSkill sau đó tìm trong bảng JobSkill có các skill và skill level phù hợp rồi hiển thị danh sách các job cho nhân viên xem).
+  + Trong trang user, click vào View Job For You để tìm kiếm các công việc có skill và skill level phù hợp với bản thân(hệ thống sẽ tự động tìm kiếm skill và skill level của Candidate trong bảng CandidateSkill sau đó tìm trong bảng JobSkill có các skill và skill level phù hợp rồi hiển thị danh sách các job cho ứng viên xem).
     ![Screenshot (72)](https://github.com/son1105/labWeek05_NguyenThanhSon_20106421/assets/115455297/ccac307e-4740-40e6-a3b0-4669c2eb9c04)
     ![Screenshot (73)](https://github.com/son1105/labWeek05_NguyenThanhSon_20106421/assets/115455297/ef14e22c-cf46-4f01-a924-c630d92eabfd)
 
