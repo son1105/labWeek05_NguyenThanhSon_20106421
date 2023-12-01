@@ -6,6 +6,7 @@ import lombok.*;
 import vn.edu.iuh.fit.backend.enums.SkillType;
 
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "skill")
@@ -27,4 +28,16 @@ public class Skill {
     @OneToMany(mappedBy = "skill", fetch = FetchType.LAZY)
     @JsonIgnore
     private List<JobSkill> jobSkills;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Skill skill)) return false;
+        return getId() == skill.getId();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId());
+    }
 }

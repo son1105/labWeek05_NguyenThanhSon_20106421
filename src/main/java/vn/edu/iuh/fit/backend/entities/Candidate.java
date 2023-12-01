@@ -10,6 +10,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "candidate")
@@ -37,4 +38,16 @@ public class Candidate {
     @OneToMany(mappedBy = "candidate", fetch = FetchType.LAZY)
     @JsonManagedReference
     private List<Experience> experiences;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Candidate candidate)) return false;
+        return getId() == candidate.getId();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId());
+    }
 }

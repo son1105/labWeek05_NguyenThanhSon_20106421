@@ -1,6 +1,7 @@
 package vn.edu.iuh.fit.frontend.controllers;
 
 import com.neovisionaries.i18n.CountryCode;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -10,11 +11,17 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import vn.edu.iuh.fit.backend.entities.Address;
 import vn.edu.iuh.fit.backend.entities.Candidate;
+import vn.edu.iuh.fit.backend.entities.CandidateSkill;
+import vn.edu.iuh.fit.backend.entities.Skill;
+import vn.edu.iuh.fit.backend.enums.SkillType;
 import vn.edu.iuh.fit.backend.repositories.AddressRepository;
 import vn.edu.iuh.fit.backend.repositories.CandidateRepository;
+import vn.edu.iuh.fit.backend.repositories.CandidateSkillRepository;
+import vn.edu.iuh.fit.backend.repositories.SkillRepository;
 import vn.edu.iuh.fit.backend.services.CandidateService;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -27,6 +34,10 @@ public class CandidateController {
     private AddressRepository addressRepository;
     @Autowired
     private CandidateService candidateService;
+    @Autowired
+    private SkillRepository skillRepository;
+    @Autowired
+    private CandidateSkillRepository candidateSkillRepository;
 
     @GetMapping("/list")
     public String showCandidateList(Model model){
@@ -69,7 +80,7 @@ public class CandidateController {
         addressRepository.save(address);
         candidate.setAddress(address);
         candidateRepository.save(candidate);
-        return "redirect:/list";
+        return "redirect:/candidates";
     }
 
     @GetMapping("/show-edit-form/{id}")
@@ -96,5 +107,37 @@ public class CandidateController {
         candidate.setAddress(address);
         candidateRepository.save(candidate);
         return "redirect:/candidates";
+    }
+
+    @GetMapping("/candidates/show-form-login")
+    public ModelAndView showFormLogIn(@RequestParam("note") Optional<String> note){
+        ModelAndView modelAndView = new ModelAndView();
+        Candidate candidate = new Candidate();
+        modelAndView.addObject("note", note.orElse(null));
+        modelAndView.addObject("candidate", candidate);
+        modelAndView.setViewName("candidate/login");
+        return modelAndView;
+    }
+
+    @GetMapping("/candidates/login")
+    public String logIn(@RequestParam("id") long id, HttpSession session, Model model){
+        Optional<Candidate> otp = candidateRepository.findById(id);
+        if(otp.isPresent()){
+            session.setAttribute("candidate", otp.get());
+            return "redirect:/companies";
+        }else{
+            return "redirect:/candidates/show-form-login?note=Log Fail!";
+        }
+    }
+
+    @GetMapping("/candidate")
+    public String getInfo(Model model, HttpSession session){
+        Object obj = session.getAttribute("candidate");
+        if(obj != null){
+            Candidate candidate = (Candidate) obj;
+            List<CandidateSkill> candidateSkills = candidateSkillRepository.findAllByCandidate(candidate);
+            model.addAttribute("candidateSkills", candidateSkills);
+        }
+        return "candidate/candidate";
     }
 }
