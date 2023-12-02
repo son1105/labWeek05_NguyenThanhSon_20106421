@@ -44,8 +44,8 @@ public class LabWeek05NguyenThanhSon20106421Application {
         SpringApplication.run(LabWeek05NguyenThanhSon20106421Application.class, args);
     }
 
-//    @Bean
-//    @Transactional
+    @Bean
+    @Transactional
     CommandLineRunner initData() {
         return args -> {
             Random random = new Random();
