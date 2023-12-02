@@ -11,13 +11,13 @@
 </head>
 <body>
 <div class="container w-75 mt-4 p-5" style="background-color: cyan">
-    <h1>Employee</h1>
-    <h3>Id: <span th:text="${candidateSkills.get(0).candidate.id}"></span></h3>
-    <h3>Name: <span th:text="${candidateSkills.get(0).candidate.fullName}"></span></h3>
-    <h3>Date Of Birth: <span th:text="${candidateSkills.get(0).candidate.dob}"></span></h3>
-    <h3>Email: <span th:text="${candidateSkills.get(0).candidate.email}"></span></h3>
-    <h3>Phone: <span th:text="${candidateSkills.get(0).candidate.phone}"></span></h3>
-    <h3>Address: <span th:text="${candidateSkills.get(0).candidate.address}"></span></h3>
+    <h1>Candidate</h1>
+    <h3>Id: <span th:text="${candidate.id}"></span></h3>
+    <h3>Name: <span th:text="${candidate.fullName}"></span></h3>
+    <h3>Date Of Birth: <span th:text="${candidate.dob}"></span></h3>
+    <h3>Email: <span th:text="${candidate.email}"></span></h3>
+    <h3>Phone: <span th:text="${candidate.phone}"></span></h3>
+    <h3>Address: <span th:text="${candidate.address}"></span></h3>
     <ul class="h3">List skill:
         <li th:each="candidateSkill : ${candidateSkills}">
             <span>Skill name: <span th:text="${candidateSkill.skill.skillName}"></span>
@@ -25,7 +25,8 @@
             </span>
         </li>
     </ul>
-    <a class="btn btn-warning" th:href="@{/candidate/{candidateId}/jobs(candidateId=${candidateSkills.get(0).candidate.id})}">View Job For You</a>
+    <a class="btn btn-warning" th:href="@{/candidate/{candidateId}/jobs(candidateId=${candidate.id})}">View Job For You</a>
+    <a class="btn btn-warning" th:href="@{/candidate/{candidateId}/skills(candidateId=${candidate.id})}">View Skill</a>
 </div>
 </body>
 </html>

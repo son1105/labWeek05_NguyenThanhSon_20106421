@@ -136,6 +136,7 @@ public class CandidateController {
         if(obj != null){
             Candidate candidate = (Candidate) obj;
             List<CandidateSkill> candidateSkills = candidateSkillRepository.findAllByCandidate(candidate);
+            model.addAttribute("candidate", candidate);
             model.addAttribute("candidateSkills", candidateSkills);
         }
         return "candidate/candidate";

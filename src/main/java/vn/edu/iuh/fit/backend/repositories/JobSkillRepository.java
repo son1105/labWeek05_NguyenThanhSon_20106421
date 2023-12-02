@@ -12,4 +12,6 @@ import java.util.List;
 @Repository
 public interface JobSkillRepository extends JpaRepository<JobSkill, JobSkillId> {
     List<JobSkill> findAllBySkillAndSkillLevel(Skill skill, SkillLevel skillLevel);
+
+    List<JobSkill> findAllBySkill(Skill skill);
 }

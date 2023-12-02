@@ -16,4 +16,7 @@ public interface SkillRepository extends JpaRepository<Skill, Long> {
 
     @Query("from Skill s where s.id not in (select js.skill.id FROM JobSkill js where js.job.id = :jobId)")
     List<Skill> notFindAllByJobId(@Param("jobId") long jobId);
+
+    @Query("from Skill s where s.id not in (select cs.skill.id FROM CandidateSkill cs where cs.candidate.id = :candidateId)")
+    List<Skill> notFindAllByCandidateId(@Param("candidateId") long candidateId);
 }

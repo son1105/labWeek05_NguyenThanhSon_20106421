@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import vn.edu.iuh.fit.backend.entities.Company;
 import vn.edu.iuh.fit.backend.entities.Job;
 import vn.edu.iuh.fit.backend.entities.JobSkill;
+import vn.edu.iuh.fit.backend.enums.SkillLevel;
 import vn.edu.iuh.fit.backend.repositories.CompanyRepository;
 import vn.edu.iuh.fit.backend.repositories.JobRepository;
 import vn.edu.iuh.fit.backend.services.JobService;
@@ -40,6 +41,24 @@ public class JobController {
             model.addAttribute("pageNumbers", pageNumbers);
         }
         return "job/list";
+    }
+
+    @GetMapping("/skill/{skillID}/jobs")
+    public String showJobListForSkill(Model model, @PathVariable("skillID") long skillID,
+                                      @RequestParam("skillLevel") Optional<SkillLevel> level,
+                                      @RequestParam Optional<Integer> page,
+                                      @RequestParam Optional<Integer> size){
+        int currPage = page.orElse(1);
+        int pageSize = size.orElse(10);
+        Page<JobSkill> jobPage = jobService.getAllJobForSkill(currPage - 1, pageSize, "id", "asc", skillID, level.orElse(null));
+        model.addAttribute("pageJob", jobPage);
+        model.addAttribute("skill", skillID);
+        int totalPage = jobPage.getTotalPages();
+        if(totalPage > 0){
+            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPage).boxed().collect(Collectors.toList());
+            model.addAttribute("pageNumbers", pageNumbers);
+        }
+        return "job/jobForSkill";
     }
 
     @GetMapping("/candidate/{candidateId}/jobs")

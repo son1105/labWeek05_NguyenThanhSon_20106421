@@ -12,10 +12,7 @@ import vn.edu.iuh.fit.backend.dto.SkillInformation;
 import vn.edu.iuh.fit.backend.entities.*;
 import vn.edu.iuh.fit.backend.enums.SkillLevel;
 import vn.edu.iuh.fit.backend.ids.JobSkillId;
-import vn.edu.iuh.fit.backend.repositories.CompanyRepository;
-import vn.edu.iuh.fit.backend.repositories.JobRepository;
-import vn.edu.iuh.fit.backend.repositories.JobSkillRepository;
-import vn.edu.iuh.fit.backend.repositories.SkillRepository;
+import vn.edu.iuh.fit.backend.repositories.*;
 import vn.edu.iuh.fit.backend.services.SkillService;
 
 import java.util.ArrayList;
@@ -34,6 +31,10 @@ public class SkillController {
     private SkillService skillService;
     @Autowired
     private JobSkillRepository jobSkillRepository;
+    @Autowired
+    private CandidateSkillRepository candidateSkillRepository;
+    @Autowired
+    private CandidateRepository candidateRepository;
 //    @GetMapping("/listSkill")
 //    public String getAll(Model model){
 //        List<Skill> skills = skillRepository.findAll();
@@ -63,6 +64,15 @@ public class SkillController {
         model.addAttribute("job", job);
 //        JobSkill jobSkill = jobSkillRepository.findById(new JobSkillId(job, skills));
         return "skill/listSkill";
+    }
+
+    @GetMapping("/candidate/{candidateId}/skills")
+    public String showSkillOfCandidate(Model model, @PathVariable("candidateId") long candidateId){
+        List<CandidateSkill> candidateSkills = candidateSkillRepository.findAllByCandidate(candidateRepository.findById(candidateId).get());
+        List<Skill> skills = skillRepository.notFindAllByCandidateId(candidateId);
+        model.addAttribute("candidateSkills", candidateSkills);
+        model.addAttribute("skills", skills);
+        return "skill/skillCandidate";
     }
 
     @GetMapping("/{jobId}/skill/show-add-form")
