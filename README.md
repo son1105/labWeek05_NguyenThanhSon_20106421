@@ -21,8 +21,12 @@ project week05
   + Trong trang Company có nút User để thực hiện chuyển sang trang hiển thị thông tin của user đã đăng nhập.
     ![Screenshot (71)](https://github.com/son1105/labWeek05_NguyenThanhSon_20106421/assets/115455297/a5ece5e0-a020-47fa-9704-aac115a7d2e2)
   + Trong trang user, click vào View Job For You để tìm kiếm các công việc có skill và skill level phù hợp với bản thân(hệ thống sẽ tự động tìm kiếm skill và skill level của Candidate trong bảng CandidateSkill sau đó tìm trong bảng JobSkill có các skill và skill level phù hợp rồi hiển thị danh sách các job cho ứng viên xem).
-    ![Screenshot (72)](https://github.com/son1105/labWeek05_NguyenThanhSon_20106421/assets/115455297/ccac307e-4740-40e6-a3b0-4669c2eb9c04)
+    ![Screenshot (74)](https://github.com/son1105/labWeek05_NguyenThanhSon_20106421/assets/115455297/f51dd2a7-d2d9-470f-a272-71ad5100775b)
     ![Screenshot (73)](https://github.com/son1105/labWeek05_NguyenThanhSon_20106421/assets/115455297/ef14e22c-cf46-4f01-a924-c630d92eabfd)
+  + Trong trang user, click vào View Skill để xem các skill của bản thân và các skill chưa có để học. Trang Skill sẽ hiện ra
+    ![Screenshot (75)](https://github.com/son1105/labWeek05_NguyenThanhSon_20106421/assets/115455297/01376281-db2c-4fa9-8911-df3dbd1b97cc)
+  + Bên trái là danh sách các skill của Candidate, bên phải là danh sách các skill mà Candidate còn thiếu. Có thể xem Job phù hợp với Skill đó bằng các click vào View trong cột View Job.
+    ![Screenshot (76)](https://github.com/son1105/labWeek05_NguyenThanhSon_20106421/assets/115455297/93bcbd29-21c2-45ac-8584-44759c136c40)
 
 - Đường dẫn đến trang candidate hiển thị danh sách các candidate: http://localhost:8080/candidates?size=10&page=1
   ![Screenshot (7)](https://github.com/son1105/labWeek05_NguyenThanhSon_20106421/assets/115455297/eb8df129-596f-4792-9d00-9c8787595728)
